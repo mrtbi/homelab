@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: planka-database
+spec:
+  serviceName: "planka-database"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: planka-database
+  template:
+    metadata:
+      labels:
+        app: planka-database
+    spec:
+      containers:
+      - name: planka-database
+        image: postgres:15
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: planka-database-secret 
+              key: password
+        volumeMounts:
+        - name: planka-database-data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: planka-database-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: openebs-hostpath
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: planka-database
+spec:
+  clusterIP: None
+  ports:
+  - port: 5432
+    name: postgres
+  selector:
+    app: planka-database

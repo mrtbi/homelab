@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./external-secret-database.yaml
   - ./external-secret-app.yaml
-  - ./database.yaml
+  - ./planka-database.yaml
   - ./helmrepo.yaml
   - ./helmrelease.yaml
   - ./httproute.yaml
