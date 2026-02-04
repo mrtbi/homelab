@@ -20,3 +20,6 @@ spec:
     baseUrl: "https://tasks.mrtb.io"
     persistence:
       enabled: true
+    existingSecretkeySecret: planka-app-secret
+    existingAdminCredsSecret: planka-app-secret
+    existingDburlSecret: planka-app-secret
