@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: planka-database
-        image: postgres:15
+        image: postgres:18
         env:
         - name: POSTGRES_PASSWORD
           valueFrom:
