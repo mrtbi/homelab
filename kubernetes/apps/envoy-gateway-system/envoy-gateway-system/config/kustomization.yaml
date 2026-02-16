@@ -7,3 +7,4 @@ resources:
   - ./gatewayclass.yaml
   - ./gatewayclass-merged.yaml
   - ./envoyproxyconfig.yaml
+  - ./sourceiptrafficpolicy.yaml
