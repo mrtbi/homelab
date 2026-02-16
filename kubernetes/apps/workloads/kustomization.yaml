@@ -12,6 +12,7 @@ resources:
   - ./kitchenowl/ks.yaml
   - ./n8n/ks.yaml
   - ./papra/ks.yaml
+  - ./sparkyfitness/ks.yaml
   #- ./planka/ks.yaml
   - ./unifi/ks.yaml
 components:
