@@ -48,3 +48,10 @@ spec:
           - backendRefs:
               - name: sparkyfitness-frontend
                 port: *httpPort
+          - filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                  - name: "add-header"
+                    value: "X-Forwarded-For"
+         
