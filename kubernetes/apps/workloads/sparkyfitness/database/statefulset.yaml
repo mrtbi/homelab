@@ -1,0 +1,55 @@
+kind: StatefulSet
+metadata:
+  name: sparkyfitness-database
+spec:
+  serviceName: sparkyfitness-database
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sparkyfitness-database
+  template:
+    metadata:
+      labels:
+        app: sparkyfitness-database
+    spec:
+      containers:
+      - name: sparkyfitness-database
+        image: postgres:18
+        env:
+        - name: POSTGRES_DB
+          value: sparkyfitness
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: sparkyfitness-database-secret
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sparkyfitness-database-secret 
+              key: password
+        volumeMounts:
+        - name: sparkyfitness-database-data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: sparkyfitness-database-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: openebs-hostpath
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sparkyfitness-database
+spec:
+  clusterIP: None
+  ports:
+  - port: 5432
+    name: postgres
+  selector:
+    app: sparkyfitness-database
