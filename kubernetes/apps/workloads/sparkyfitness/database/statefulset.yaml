@@ -31,7 +31,7 @@ spec:
               key: password
         volumeMounts:
         - name: sparkyfitness-database-data
-          mountPath: /var/lib/postgresql/data
+          mountPath: /var/lib/postgresql
   volumeClaimTemplates:
   - metadata:
       name: sparkyfitness-database-data
