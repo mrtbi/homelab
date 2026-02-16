@@ -20,7 +20,7 @@ spec:
             image:
               # renovate: datasource=docker depName=ghcr.io/codewithcj/sparkyfitness-frontend
               repository: ghcr.io/codewithcj/sparkyfitness-frontend
-              tag: v0.16.3.2@sha256:af88bcd3e31fbee81b69a1c8eb80385748031575b7c437cca3ce66e4519dd5d0
+              tag: v0.16.4.3@sha256:6eb101d606ac2df7c1e825ab31ca6bf1701fc5af048254899296370f61f97546
             env:
               SPARKY_FITNESS_SERVER_HOST: sparkyfitness-server.workloads.svc.cluster.local
               SPARKY_FITNESS_SERVER_PORT: 3010
