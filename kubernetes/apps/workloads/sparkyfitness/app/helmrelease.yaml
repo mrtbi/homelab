@@ -46,5 +46,5 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: sparkyfitness-frontend-web
+              - name: sparkyfitness-frontend
                 port: *httpPort
