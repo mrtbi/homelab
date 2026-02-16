@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app sparkyfitness-server
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      server:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          server:
+            image:
+              # renovate: datasource=docker depName=ghcr.io/codewithcj/sparkyfitness-server
+              repository: ghcr.io/codewithcj/sparkyfitness-server
+              tag: v0.16.4.3@sha256:b218ec25a270e94c08bc1427cf22442d7775518f2450bc02c7ea902fb768bd0b
+            envFrom:
+              - secretRef:
+                  name: sparkyfitness-server-secret
+            resources:
+              requests:
+                cpu: 15m
+                memory: 128M
+              limits:
+                memory: 128M
+    service:
+      server:
+        controller: server
+        ports:
+          http:
+            port: &port 3010
+    persistence:
+      backup:
+        annotations:
+          k8up.io/backup: "true"
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        globalMounts:
+          - path: /backup
+      uploads:
+        annotations:
+          k8up.io/backup: "true"
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        globalMounts:
+          - path: /uploads
