@@ -5,7 +5,7 @@ metadata:
 spec:
   clientIPDetection:
     xForwardedFor:
-      numTrustedHops: 1
+      numTrustedHops: 2
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
