@@ -10,9 +10,9 @@ resources:
   - ./it-tools/ks.yaml
   - ./karakeep/ks.yaml
   - ./kitchenowl/ks.yaml
-  - ./n8n/ks.yaml
+  #- ./n8n/ks.yaml
   - ./papra/ks.yaml
-  - ./sparkyfitness/ks.yaml
+  #- ./sparkyfitness/ks.yaml
   #- ./planka/ks.yaml
   - ./unifi/ks.yaml
 components:
