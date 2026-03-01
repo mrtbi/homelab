@@ -46,7 +46,7 @@ spec:
             cpu: 100m
             memory: 265Mi
         volumeMounts:
-        - name: runner-data
+        - name: gitea-runner-data
           mountPath: /data
       volumes:
       - name: gitea-runner-data
