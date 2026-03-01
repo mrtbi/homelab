@@ -3,19 +3,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: act-runner
-  name: act-runner
+    app: gitea-act-runner
+  name: gitea-act-runner
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: act-runner
+      app: gitea-act-runner
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: act-runner
+        app: gitea-act-runner
     spec:
       restartPolicy: Always
       securityContext:
