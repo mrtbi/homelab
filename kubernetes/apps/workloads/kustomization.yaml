@@ -5,15 +5,11 @@ kind: Kustomization
 namespace: workloads
 resources:
   - ./backup/ks.yaml
-  #- ./code-server/ks.yaml
   - ./glance/ks.yaml
   - ./it-tools/ks.yaml
   - ./karakeep/ks.yaml
   - ./kitchenowl/ks.yaml
-  #- ./n8n/ks.yaml
   - ./papra/ks.yaml
-  #- ./sparkyfitness/ks.yaml
-  #- ./planka/ks.yaml
   - ./unifi/ks.yaml
 components:
   - ../../components/namespace
