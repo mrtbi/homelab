@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: act-runner
+  name: act-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: act-runner
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: act-runner
+    spec:
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: runner
+        image: gitea/act_runner:0.3.0-dind-rootless@sha256:1d70d183cbe87a1461cd2f91730e8073a41bdeaa05949328217401dd4f7c8eb1
+        imagePullPolicy: Always
+        # command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
+        env:
+        - name: DOCKER_HOST
+          value: tcp://localhost:2376
+        - name: DOCKER_CERT_PATH
+          value: /certs/client
+        - name: DOCKER_TLS_VERIFY
+          value: "1"
+        - name: GITEA_INSTANCE_URL
+          value: "https://codeberg.org"
+        - name: GITEA_RUNNER_REGISTRATION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: gitea-runner-secret
+              key: token
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 265Mi
+        volumeMounts:
+        - name: runner-data
+          mountPath: /data
+      volumes:
+      - name: gitea-runner-data
+        persistentVolumeClaim:
+          claimName: gitea-act-runner
+
