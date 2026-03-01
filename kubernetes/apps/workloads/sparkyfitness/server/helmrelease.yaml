@@ -20,7 +20,7 @@ spec:
             image:
               # renovate: datasource=docker depName=ghcr.io/codewithcj/sparkyfitness-server
               repository: ghcr.io/codewithcj/sparkyfitness-server
-              tag: v0.16.4.3@sha256:b218ec25a270e94c08bc1427cf22442d7775518f2450bc02c7ea902fb768bd0b
+              tag: v0.16.4.7@sha256:f8192a105593d6a361c46f879c7c108eae5b2c683535b78776aff8f9cd6f76a2
             envFrom:
               - secretRef:
                   name: sparkyfitness-server-secret
