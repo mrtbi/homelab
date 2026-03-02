@@ -21,7 +21,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: runner
-        image: gitea/act_runner:0.3.0-dind@sha256:99f72f5821d44e18dd1fcab86703a79bbdffcdbdc87bb1d4fdb0f0c5495e9777
+        image: gitea/act_runner:0.3.0@sha256:99f72f5821d44e18dd1fcab86703a79bbdffcdbdc87bb1d4fdb0f0c5495e9777
         imagePullPolicy: IfNotPresent
         command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- run.sh"]
         env:
