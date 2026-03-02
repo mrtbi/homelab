@@ -65,6 +65,8 @@ spec:
         volumeMounts:
         - name: docker-certs
           mountPath: /certs
+        - name: gitea-runner-data
+          mountPath: /data
       volumes:
       - name: gitea-runner-data
         persistentVolumeClaim:
