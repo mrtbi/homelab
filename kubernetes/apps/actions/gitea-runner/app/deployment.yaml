@@ -21,9 +21,9 @@ spec:
         fsGroup: 1000
       containers:
       - name: runner
-        image: gitea/act_runner:0.3.0-dind-rootless@sha256:1d70d183cbe87a1461cd2f91730e8073a41bdeaa05949328217401dd4f7c8eb1
+        image: gitea/act_runner:0.3.0-dind@sha256:99f72f5821d44e18dd1fcab86703a79bbdffcdbdc87bb1d4fdb0f0c5495e9777
         imagePullPolicy: Always
-        # command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
+        command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- run.sh"]
         env:
         - name: DOCKER_HOST
           value: tcp://localhost:2376
@@ -45,10 +45,28 @@ spec:
             cpu: 100m
             memory: 265Mi
         volumeMounts:
+        - name: docker-certs
+          mountPath: /certs
         - name: gitea-runner-data
           mountPath: /data
+      - name: daemon
+        image: docker:23.0.6-dind
+        env:
+        - name: DOCKER_TLS_CERTDIR
+          value: /certs
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 265Mi
+        volumeMounts:
+        - name: docker-certs
+          mountPath: /certs
       volumes:
       - name: gitea-runner-data
         persistentVolumeClaim:
           claimName: gitea-act-runner
+      - name: docker-certs
+        emptyDir: {}
 
