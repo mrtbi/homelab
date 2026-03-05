@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: actions
 resources:
   - ./gitea-runner/ks.yaml
-  - ./woodpecker/ks.yaml
+  #- ./woodpecker/ks.yaml
 components:
   - ../../components/namespace
 patches:
