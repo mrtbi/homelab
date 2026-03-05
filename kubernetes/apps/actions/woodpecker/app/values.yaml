@@ -1,0 +1,11 @@
+---
+env:
+  WOODPECKER_SERVER: grpc.ci.codeberg.org
+  WOODPECKER_GRPC_SECURE: true
+  WOODPECKER_BACKEND_K8S_NAMESPACE: actions
+  WOODPECKER_AGENT_SECRET:
+    valueFrom:
+       secretKeyRef:
+         name: gitea-runner-secret
+         key: token
+mapAgentSecret: false
