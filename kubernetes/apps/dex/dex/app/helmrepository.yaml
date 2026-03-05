@@ -7,5 +7,4 @@ metadata:
   namespace: dex
 spec:
   interval: 30m
-  type: oci
   url: https://charts.dexidp.io
