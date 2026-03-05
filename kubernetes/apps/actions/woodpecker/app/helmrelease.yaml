@@ -6,14 +6,9 @@ metadata:
   name: woodpecker-ci
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: agent
-      sourceRef:
-        kind: HelmRepository
-        name: woodpecker-ci-helm
-        namespace: actions
-      version: 2.0.1
+  chartRef:
+    kind: OCIRepository
+    name: woodpecker-ci-helm
   valuesFrom:
     - kind: ConfigMap
       name: woodpecker-ci-helm-values
