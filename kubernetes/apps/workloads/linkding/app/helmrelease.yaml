@@ -74,10 +74,8 @@ spec:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 10Gi
-        advancedMounts:
-          linkding:
-            app:
-              - path: /etc/linkding/data
+        globalMounts:
+          - path: /etc/linkding/data
     route:
       app:
         hostnames:
