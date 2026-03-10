@@ -68,6 +68,8 @@ spec:
           http:
             port: &port 9090
     persistence:
+      tmp:
+        type: emptyDir
       data:
         annotations:
           k8up.io/backup: "true"
