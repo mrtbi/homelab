@@ -7,7 +7,6 @@ resources:
   - ./backup/ks.yaml
   - ./glance/ks.yaml
   - ./it-tools/ks.yaml
-  #- ./karakeep/ks.yaml
   - ./linkding/ks.yaml
   - ./papra/ks.yaml
   - ./unifi/ks.yaml
