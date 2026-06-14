@@ -3,13 +3,6 @@ machine:
   install:
     diskSelector:
       model: TS240GMTS420S
-  network:
-    hostname: alpha.k8s.internal
-    interfaces:
-      - interface: enp1s0
-        dhcp: true
-        vip:
-          ip: 172.16.1.230
   files:
     - content: |
         apiVersion: apiserver.config.k8s.io/v1beta1
@@ -48,3 +41,17 @@ provisioning:
     match: system_disk
   minSize: 100GiB
   grow: true
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: alpha.k8s.internal
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: enp1s0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 172.16.1.230
+link: enp1s0

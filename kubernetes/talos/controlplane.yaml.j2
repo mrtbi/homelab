@@ -23,9 +23,8 @@ machine:
         - actions-runner-system
         - system-upgrade
     rbac: true
-    stableHostname: true
   install:
-    image: factory.talos.dev/metal-installer/2d61dd07b20062062ea671b4d01873506103b67c0f7a4c3fb6cf4ee85585dcb8:v1.12.0
+    image: factory.talos.dev/metal-installer/2d61dd07b20062062ea671b4d01873506103b67c0f7a4c3fb6cf4ee85585dcb8:v1.13.4
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -40,10 +39,6 @@ machine:
         - 172.16.1.0/24
   network:
     disableSearchDomain: true
-    extraHostEntries:
-      - ip: 172.16.1.230
-        aliases:
-          - api.k8s.internal
   token: {{ ENV.MACHINE_TOKEN }}
   type: controlplane
 cluster:
@@ -111,3 +106,9 @@ cluster:
   serviceAccount:
     key: {{ ENV.CLUSTER_SERVICEACCOUNT_KEY }}
   token: {{ ENV.CLUSTER_TOKEN }}
+---
+apiVersion: v1alpha1
+kind: StaticHostConfig
+name: 172.16.1.230
+hostnames:
+    - api.k8s.internal
