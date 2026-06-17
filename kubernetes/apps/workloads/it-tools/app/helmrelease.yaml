@@ -26,8 +26,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/bjw-s-labs/it-tools
-              tag: 2024.10.22@sha256:4dfe650a4be1e13d59e37f2b2aa6b8faf915c8afb53a379ea5eaaba679a0a456
+              repository: ghcr.io/sharevb/it-tools
+              tag: 2026.1.4@sha256:6d335b5d6f7d28a540ef36c0ab2e20cbf7df2c0d8b7adb16585ccd3ebcfeed59
             resources:
               requests:
                 cpu: 5m
@@ -55,7 +55,7 @@ spec:
           - tools.mrtb.io
         parentRefs:
           - name: gateway
-            namespace: kube-system
+            namespace: envoy-gateway-system
             sectionName: https
         rules:
           - backendRefs:

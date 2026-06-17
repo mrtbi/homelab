@@ -69,7 +69,7 @@ spec:
           - unifi.mrtb.io
         parentRefs:
           - name: gateway
-            namespace: kube-system
+            namespace: envoy-gateway-system
             sectionName: https
         rules:
           - backendRefs:
