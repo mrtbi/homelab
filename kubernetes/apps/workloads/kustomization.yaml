@@ -5,10 +5,8 @@ kind: Kustomization
 namespace: workloads
 resources:
   - ./backup/ks.yaml
-  - ./glance/ks.yaml
   - ./it-tools/ks.yaml
   - ./linkding/ks.yaml
-  - ./papra/ks.yaml
   - ./unifi/ks.yaml
 components:
   - ../../components/namespace
