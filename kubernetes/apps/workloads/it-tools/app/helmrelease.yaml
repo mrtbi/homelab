@@ -48,7 +48,7 @@ spec:
     route:
       app:
         hostnames:
-          - it-tools.bjw-s.dev
+          - tools.mrtb.io
         parentRefs:
           - name: gateway
             namespace: envoy-gateway-system
