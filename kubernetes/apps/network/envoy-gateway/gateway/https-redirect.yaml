@@ -4,8 +4,11 @@ metadata:
   name: http-filter-redirect
 spec:
   parentRefs:
-  - name: gateway
-    namespace: envoy-gateway-system
+  - name: gateway-external
+    namespace: network
+    sectionName: http
+  - name: gateway-internal
+    namespace: network
     sectionName: http
   rules:
   - filters:

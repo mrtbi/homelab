@@ -9,6 +9,13 @@ spec:
   chartRef:
     kind: OCIRepository
     name: envoy-gateway-helm
-  valuesFrom:
-    - kind: ConfigMap
-      name: envoy-gateway-helm-values
+  values:
+    config:
+      envoyGateway:
+        extensionApis:
+          enableBackend: true
+        provider:
+          type: Kubernetes
+          kubernetes:
+            deploy:
+              type: GatewayNamespace
