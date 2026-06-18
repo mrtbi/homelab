@@ -41,18 +41,18 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthz
-            port: http-wh-metrics
+            port: 8080
           initialDelaySeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
             path: /readyz
-            port: http-wh-metrics
+            port: 8080
           initialDelaySeconds: 10
           timeoutSeconds: 5
     extraArgs:
-      - --regex-domain-filter='^[^*].*\.mrtb\.io$'
-      - --regex-domain-exclusion='^\*\.'
+      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+      - --crd-source-kind=DNSEndpoint
     policy: sync
     resources:
       requests:
