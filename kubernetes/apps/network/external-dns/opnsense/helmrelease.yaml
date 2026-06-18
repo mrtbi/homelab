@@ -51,7 +51,8 @@ spec:
           initialDelaySeconds: 10
           timeoutSeconds: 5
     extraArgs:
-      - --ignore-ingress-tls-spec
+      - --regex-domain-filter='^[^*].*\.mrtb\.io$'
+      - --regex-domain-exclusion='^\*\.'
     policy: sync
     resources:
       requests:
@@ -60,6 +61,8 @@ spec:
       limits:
         memory: 90M
     sources:
+      - crd
       - gateway-httproute
+      - service
     registry: noop
     domainFilters: ["mrtb.io"] # replace with your domain

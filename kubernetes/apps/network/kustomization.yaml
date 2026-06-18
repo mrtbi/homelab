@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: network
 resources:
   - ./envoy-gateway/ks.yaml
-  #- ./external-dns/ks.yaml
+  - ./external-dns/ks.yaml
 components:
   - ../../components/namespace
