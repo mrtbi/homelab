@@ -1,0 +1,67 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns-opnsense
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: external-dns
+  interval: 30m
+  values:
+    fullnameOverride: external-dns-opnsense
+    logLevel: debug
+    provider:
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
+          tag: v1.0.0
+        env:
+          - name: OPNSENSE_API_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-opnsense-secret
+                key: api_secret
+          - name: OPNSENSE_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-opnsense-secret
+                key: api_key
+          - name: OPNSENSE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-opnsense-secret
+                key: opnsense_host
+          - name: OPNSENSE_SKIP_TLS_VERIFY
+            value: "true"
+          - name: LOG_LEVEL
+            value: debug
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+    extraArgs:
+      - --ignore-ingress-tls-spec
+    policy: sync
+    resources:
+      requests:
+        cpu: 16m
+        memory: 90M
+      limits:
+        memory: 90M
+    sources:
+      - gateway-httproute
+      - service
+      - crd
+    registry: noop
+    domainFilters: ["mrtb.io"] # replace with your domain
