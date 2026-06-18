@@ -61,7 +61,5 @@ spec:
         memory: 90M
     sources:
       - gateway-httproute
-      - service
-      - crd
     registry: noop
     domainFilters: ["mrtb.io"] # replace with your domain
