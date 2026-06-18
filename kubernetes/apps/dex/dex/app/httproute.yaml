@@ -5,8 +5,8 @@ metadata:
   name: dex
 spec:
   parentRefs:
-    - namespace: envoy-gateway-system
-      name: gateway
+    - namespace: network
+      name: gateway-internal
       sectionName: https
   hostnames:
     - auth.mrtb.io

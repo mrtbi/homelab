@@ -82,8 +82,8 @@ spec:
         hostnames:
           - link.mrtb.io
         parentRefs:
-          - name: gateway
-            namespace: envoy-gateway-system
+          - name: gateway-internal
+            namespace: network
             sectionName: https
         rules:
           - backendRefs:

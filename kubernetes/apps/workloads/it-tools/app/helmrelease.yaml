@@ -50,8 +50,8 @@ spec:
         hostnames:
           - tools.mrtb.io
         parentRefs:
-          - name: gateway
-            namespace: envoy-gateway-system
+          - name: gateway-internal
+            namespace: network
     service:
       app:
         ports:
