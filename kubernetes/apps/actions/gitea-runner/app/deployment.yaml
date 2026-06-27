@@ -50,7 +50,7 @@ spec:
         - name: gitea-runner-data
           mountPath: /data
       - name: daemon
-        image: docker:29.5.3-dind@sha256:ad68e89b675740867a3bb96488a93fea9209ad36c6305bfba2664912d6dcf11a
+        image: docker:29.6.1-dind@sha256:66d292e5c26bd33a6f6f61cacb880de2186339a524ecba1ce098dbbaceed6515
         env:
         - name: DOCKER_TLS_CERTDIR
           value: /certs
