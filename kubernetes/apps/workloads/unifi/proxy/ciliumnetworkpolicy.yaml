@@ -1,0 +1,22 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: unifi-controller-proxy
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/controller: proxy
+      app.kubernetes.io/instance: unifi-controller-proxy
+      app.kubernetes.io/name: unifi-controller-proxy
+  enableDefaultDeny:
+    ingress: true
+    egress: false
+  ingress:
+  - fromEndpoints:
+      - matchLabels:
+          k8s:io.kubernetes.pod.namespace: network
+          gateway.networking.k8s.io/gateway-name: gateway-internal
+    toPorts:
+      - ports:
+        - port: "8080"
+          protocol: TCP
