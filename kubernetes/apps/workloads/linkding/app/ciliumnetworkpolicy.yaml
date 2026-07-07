@@ -1,7 +1,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: linkding-cilium-policy
+  name: linkding
 spec:
   endpointSelector:
     matchLabels:
@@ -14,11 +14,7 @@ spec:
   ingress:
   - fromEndpoints:
       - matchLabels:
-          app.kubernetes.io/component: proxy
-          app.kubernetes.io/managed-by: envoy-gateway
-          app.kubernetes.io/name: envoy
-          gateway.envoyproxy.io/owning-gateway-name: gateway-internal
-          gateway.envoyproxy.io/owning-gateway-namespace: network
+          k8s:io.kubernetes.pod.namespace: network
           gateway.networking.k8s.io/gateway-name: gateway-internal
     toPorts:
       - ports:
