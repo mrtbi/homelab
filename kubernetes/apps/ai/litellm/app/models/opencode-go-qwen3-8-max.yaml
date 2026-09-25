@@ -12,6 +12,8 @@ spec:
       name: litellm-secret
       key: OPENCODE_GO_API_KEY
     dropParams: true
+    additional:
+      extra_headers: '{"x-opencode-session": "e0002380-7302-4bb8-ab7b-81ae5c982dcd", "User-Agent": "my-agent/1.0"}'
   info:
     maxInputTokens: 1000000
     maxOutputTokens: 131072
