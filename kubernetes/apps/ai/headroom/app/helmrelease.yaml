@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/headroomlabs-ai/headroom
-              tag: 0.37.0-code-nonroot@sha256:998535dfd88380afbac815c1fa0e1d1dc3d04ec3f01d44dfe2ffa0ef0a639f7c
+              tag: 0.39.0-code-nonroot@sha256:e38389f1845b271c5d9656b2f98aaf09363222e77a5813458a1badafe0830100
             env:
               HEADROOM_COMPRESS_ALLOW_REMOTE: 1
               HEADROOM_COMPRESS_USER_MESSAGES: 1
