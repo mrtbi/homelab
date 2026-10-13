@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: mistral-large-4
+spec:
+  modelName: mistral/large-4
+  params:
+    model: openai/mistral-large-4-0
+    apiBase: https://api.mistral.ai/v1
+    apiKeyRef:
+      name: litellm-secret
+      key: MISTRAL_API_KEY
+    dropParams: true
+  info:
+    maxInputTokens: 1048576
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    extra:
+      supports_reasoning: true
+      supports_vision: true
+      input_cost_per_token: 0.00000136
+      output_cost_per_token: 0.00000418
+      cache_read_input_token_cost: 0.00000014
