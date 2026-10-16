@@ -15,8 +15,6 @@ spec:
     crds: CreateReplace
   values:
     agent:
-      loopfileBaseDirs:
-        - /var/mnt/PERSISTENT/miroir
       resources:
         limits:
           memory: 192Mi
