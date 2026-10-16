@@ -13,12 +13,3 @@ apiVersion: v1alpha1
 kind: DHCPv4Config
 name: enp1s0
 clientIdentifier: mac
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: PERSISTENT
-provisioning:
-  diskSelector:
-    match: system_disk
-  minSize: 10GB
-  maxSize: 10GB
