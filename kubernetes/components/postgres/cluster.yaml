@@ -5,7 +5,7 @@ metadata:
 spec:
   instances: ${POSTGRES_REPLICAS:=1}
   nodeMaintenanceWindow:
-    inProgess: false
+    inProgress: false
     reusePVC: true
   storage:
     size: ${POSTGRES_STORAGE:=1Gi}
