@@ -4,6 +4,9 @@ metadata:
   name: ${APP}-postgres
 spec:
   instances: ${POSTGRES_REPLICAS:=1}
+  nodeMaintenanceWindow:
+    inProgess: false
+    reusePVC: true
   storage:
     size: ${POSTGRES_STORAGE:=1Gi}
   bootstrap:
