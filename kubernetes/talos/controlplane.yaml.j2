@@ -1,18 +1,10 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.10/website/content/v1.10/schemas/config.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.14/website/content/v1.14/schemas/config.schema.json
 machine:
   type: controlplane
   ca:
     crt: {{ ENV.MACHINE_CA_CRT }}
     key: {{ ENV.MACHINE_CA_KEY }}
-  features:
-    kubernetesTalosAPIAccess:
-      enabled: true
-      allowedRoles:
-        - os:admin
-      allowedKubernetesNamespaces:
-        - actions-runner-system
-        - system-upgrade
   files:
     - content: |
         apiVersion: apiserver.config.k8s.io/v1beta1
@@ -36,31 +28,6 @@ machine:
       path: /var/kubernetes/authenticationconfiguration.yaml
       op: create
 cluster:
-  aggregatorCA:
-    crt: {{ ENV.CLUSTER_AGGREGATORCA_CRT }}
-    key: {{ ENV.CLUSTER_AGGREGATORCA_KEY }}
-  allowSchedulingOnControlPlanes: true
-  apiServer:
-    image: registry.k8s.io/kube-apiserver:{{ k8s_version }}
-    extraArgs:
-      authentication-config: /system/config/kubernetes/authenticationconfiguration.yaml
-      enable-aggregator-routing: "true"
-    extraVolumes:
-      - hostPath: /var/kubernetes/authenticationconfiguration.yaml
-        mountPath: /system/config/kubernetes/authenticationconfiguration.yaml
-        readonly: true
-    certSANs:
-      - api.k8s.internal
-      - 172.16.1.230
-      - 127.0.0.1 # KubePrism
-    disablePodSecurityPolicy: true
-  ca:
-    crt: {{ ENV.CLUSTER_CA_CRT }}
-    key: {{ ENV.CLUSTER_CA_KEY }}
-  controllerManager:
-    image: registry.k8s.io/kube-controller-manager:{{ k8s_version }}
-  coreDNS:
-    disabled: true
   etcd:
     advertisedSubnets:
       - 172.16.1.0/24
@@ -69,14 +36,111 @@ cluster:
       key: {{ ENV.CLUSTER_ETCD_CA_KEY }}
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
-  proxy:
-    disabled: true
-    image: registry.k8s.io/kube-proxy:{{ k8s_version }}
-  scheduler:
-    image: registry.k8s.io/kube-scheduler:{{ k8s_version }}
-  secretboxEncryptionSecret: {{ ENV.CLUSTER_SECRETBOXENCRYPTIONSECRET }}
-  serviceAccount:
-    key: {{ ENV.CLUSTER_SERVICEACCOUNT_KEY }}
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerConfig
+image: registry.k8s.io/kube-apiserver:{{ k8s_version }}
+extraArgs:
+  enable-aggregator-routing: "true"
+certExtraSANs:
+  - api.k8s.internal
+  - 172.16.1.230
+  - 127.0.0.1
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerCAConfig
+issuingCA:
+  cert: |
+        {{ ENV.CLUSTER_CA_CRT | trim | indent(8) }}
+  key: |
+       {{ ENV.CLUSTER_CA_KEY | trim | indent(7) }}
+---
+apiVersion: v1alpha1
+kind: KubeControllerManagerConfig
+image: registry.k8s.io/kube-controller-manager:{{ k8s_version }}
+---
+apiVersion: v1alpha1
+kind: KubeSchedulerConfig
+image: registry.k8s.io/kube-scheduler:{{ k8s_version }}
+---
+apiVersion: v1alpha1
+kind: KubeProxyConfig
+image: registry.k8s.io/kube-proxy:{{ k8s_version }}
+enabled: false
+---
+apiVersion: v1alpha1
+kind: KubeCoreDNSConfig
+enabled: false
+---
+apiVersion: v1alpha1
+kind: KubeAggregatorCAConfig
+issuingCA:
+  cert: |
+        {{ ENV.CLUSTER_AGGREGATORCA_CRT | trim | indent(8) }}
+  key: |
+       {{ ENV.CLUSTER_AGGREGATORCA_KEY | trim | indent(7) }}
+---
+apiVersion: v1alpha1
+kind: KubeServiceAccountConfig
+issuer:
+  privateKey: |
+              {{ ENV.CLUSTER_SERVICEACCOUNT_KEY | trim | indent(14) }}
+  issuerURL: https://api.k8s.internal:6443
+---
+apiVersion: v1alpha1
+kind: KubeEtcdEncryptionConfig
+config:
+  resources:
+    - providers:
+        - secretbox:
+            keys:
+              - name: key2
+                secret: {{ ENV.CLUSTER_SECRETBOXENCRYPTIONSECRET }}
+        - identity: {}
+      resources:
+        - secrets
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+name: node
+type: Node
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+name: rbac
+type: RBAC
+---
+apiVersion: v1alpha1
+kind: KubeAuthenticationConfig
+configuration:
+  jwt: 
+  - issuer:
+      url: https://auth.mrtb.io
+      audiences:
+      - {{ ENV.AUTH_CLIENT_ID }}
+    claimMappings:
+      username:
+        claim: preferred_username
+        prefix: "oidc:"
+      groups:
+        claim: groups
+        prefix: "oidc:"
+    userValidationRules:
+    - expression: "!user.username.startsWith('system:')"
+      message: "username cannot use reserved system: prefix"
+---
+apiVersion: v1alpha1
+kind: KubeTalosAPIAccessConfig
+allowedRoles:
+  - os:admin
+allowedKubernetesNamespaces:
+  - actions-runner-system
+  - system-upgrade
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+  node-role.kubernetes.io/control-plane: ""
 ---
 apiVersion: v1alpha1
 kind: Layer2VIPConfig

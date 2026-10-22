@@ -1,7 +1,10 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.10/website/content/v1.10/schemas/config.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.14/website/content/v1.14/schemas/config.schema.json
 machine:
   type: worker
-  ca:
-    crt: {{ ENV.MACHINE_CA_CRT }}
-    key: ""
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerCAConfig
+acceptedCAs:
+  - |
+    {{ ENV.CLUSTER_CA_CRT | trim | indent(4) }}

@@ -1,9 +1,11 @@
 ---
-machine:
-  install:
-    image: factory.talos.dev/metal-installer/{{ schematic }}:{{ talos_version }}
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer/{{ schematic }}:{{ talos_version }}
+provisioning:
     diskSelector:
-      model: TS240GMTS420S
+      match: disk.model == "TS240GMTS420S"
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig
