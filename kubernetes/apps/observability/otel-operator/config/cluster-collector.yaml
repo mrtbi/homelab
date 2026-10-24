@@ -5,7 +5,7 @@ metadata:
   namespace: opentelemetry-operator-system
 spec:
   mode: daemonset
-  image: docker.io/otel/opentelemetry-collector-contrib:0.139.0
+  image: docker.io/otel/opentelemetry-collector-contrib:0.163.2
   env:
     - name: K8S_CLUSTER_NAME
       value: 'main'
