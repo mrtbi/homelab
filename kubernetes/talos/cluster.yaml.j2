@@ -2,8 +2,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.14/website/content/v1.14/schemas/config.schema.json
 version: v1alpha1
 machine:
-  ca:
-    crt: {{ ENV.MACHINE_CA_CRT }}
   features:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
