@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: signoz-collector-daemonset-collector-role
+  name: otel-collector-daemonset-collector-role
   namespace: opentelemetry-operator-system
 rules:
   - apiGroups: ['']
@@ -33,13 +33,13 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: signoz-collector-daemonset-collector-binding
+  name: otel-collector-daemonset-collector-binding
   namespace: opentelemetry-operator-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: signoz-collector-daemonset-collector-role
+  name: otel-collector-daemonset-collector-role
 subjects:
   - kind: ServiceAccount
-    name: signoz-collector-daemonset-collector
+    name: otel-collector-daemonset-collector
     namespace: opentelemetry-operator-system
