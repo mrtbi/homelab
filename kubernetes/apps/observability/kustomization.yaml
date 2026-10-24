@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: observability
 resources:
   - ./otel-operator/ks.yaml
-  - ./signoz/ks.yaml
+  #- ./signoz/ks.yaml
 components:
   - ../../components/namespace
