@@ -2,11 +2,12 @@ apiVersion: opentelemetry.io/v1beta1
 kind: OpenTelemetryCollector
 metadata:
   name: otel-collector-daemonset
-  namespace: opentelemetry-operator-system
 spec:
   mode: daemonset
   image: docker.io/otel/opentelemetry-collector-contrib:0.139.0
   env:
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: 'http://signoz-otel-collector.observability.svc.cluster.local:4318'
     - name: K8S_CLUSTER_NAME
       value: 'main'
     - name: K8S_NODE_NAME
@@ -35,12 +36,7 @@ spec:
         fieldRef:
           fieldPath: metadata.namespace
     - name: SIGNOZ_COMPONENT
-      value: otel-daemonset
-    - name: SIGNOZ_INGESTION_KEY
-      valueFrom:
-        secretKeyRef:
-          name: otel-operator-secret
-          key: SIGNOZ_INGESTION_KEY
+      value: otel-deployment
     - name: OTEL_RESOURCE_ATTRIBUTES
       value: signoz.component=$(SIGNOZ_COMPONENT),k8s.cluster.name=$(K8S_CLUSTER_NAME)
     - name: OTEL_EXPORTER_OTLP_INSECURE
@@ -69,9 +65,7 @@ spec:
   config:
     exporters:
       otlphttp:
-        endpoint: https://observability.mrtb.io:443
-        headers:
-          signoz-ingestion-key: "${env:SIGNOZ_INGESTION_KEY}"
+        endpoint: ${env:OTEL_EXPORTER_OTLP_ENDPOINT}
     extensions:
       health_check:
         endpoint: 0.0.0.0:13133
