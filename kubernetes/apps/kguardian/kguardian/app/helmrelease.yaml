@@ -20,6 +20,10 @@ spec:
         auth:
           allowUnauthenticated: true
       secret: kguardian-secret
+    broker:
+      auth:
+        enabled: true
+        existingSecret: kguardian-secret
     llmBridge:
       replicaCount: 1
     telemetry:
