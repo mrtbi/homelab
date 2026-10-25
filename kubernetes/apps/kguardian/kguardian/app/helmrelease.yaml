@@ -19,7 +19,7 @@ spec:
         enabled: true
         auth:
           allowUnauthenticated: true
-      secret: kguardian-secret
+      secret: kguardian-litellm
     broker:
       auth:
         enabled: true

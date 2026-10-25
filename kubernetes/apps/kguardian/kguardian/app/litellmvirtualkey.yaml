@@ -11,4 +11,5 @@ spec:
   proxyRef: litellm
   proxyNamespace: ai
   secretName: kguardian-litellm
+  secretKey: api-key
   teamID: default
