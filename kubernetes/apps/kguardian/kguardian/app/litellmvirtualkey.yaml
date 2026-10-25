@@ -9,5 +9,6 @@ spec:
   models:
     - mistral/small-4
   proxyRef: litellm
+  proxyNamespace: ai
   secretName: kguardian-litellm
   teamID: default
