@@ -11,14 +11,21 @@ spec:
   interval: 30m
   values:
     ai:
+      enabled: true
+      provider: openai
+      baseUrl: http://litellm.ai.svc.cluster.local:4000/v1
+      model: mistral/small-4
       mcp:
         enabled: true
         auth:
           allowUnauthenticated: true
+      secret: kguardian-secret
     llmBridge:
       replicaCount: 1
     telemetry:
       enabled: false
+    supplychain:
+      enabled: true
     controller:
       excludedNamespaces:
         - kguardian
