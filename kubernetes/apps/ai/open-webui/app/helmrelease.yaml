@@ -28,7 +28,8 @@ spec:
               # Features
               ENABLE_LOGIN_FORM: true
               ENABLE_OLLAMA_API: false
-              ENABLE_OPENAI_API: false
+              ENABLE_OPENAI_API: true
+              OPENAI_API_BASE_URL: https://litellm.mrtb.io/v1
               ENABLE_RAG_WEB_SEARCH: true
               ENABLE_SEARCH_QUERY: true
               ENABLE_SIGNUP: true
@@ -42,6 +43,8 @@ spec:
             envFrom:
               - secretRef:
                   name: open-webui-secret
+              - secretRef:
+                  name: open-webui-litellm
             resources:
               requests:
                 cpu: 100m
