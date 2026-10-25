@@ -4,7 +4,7 @@ metadata:
   name: otel-collector-daemonset
 spec:
   mode: daemonset
-  image: docker.io/otel/opentelemetry-collector-contrib:0.139.0
+  image: docker.io/otel/opentelemetry-collector-contrib:0.163.2
   env:
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
       value: 'http://signoz-otel-collector.observability.svc.cluster.local:4318'
