@@ -10,6 +10,15 @@ spec:
     name: kguardian
   interval: 30m
   values:
+    ai:
+      mcp:
+        enabled: true
+        auth:
+          allowUnauthenticated: true
+    llmBridge:
+      replicaCount: 1
+    telemetry:
+      enabled: false
     controller:
       excludedNamespaces:
         - kguardian
