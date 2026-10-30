@@ -19,6 +19,10 @@ spec:
       restartPolicy: Always
       securityContext:
         fsGroup: 1000
+        securityContext:
+        seccompProfile:
+          type: Localhost
+          localhostProfile: kguardian/actions/deployment-gitea-act-runner.json
       containers:
       - name: runner
         image: gitea/act_runner:0.6.1@sha256:b5c35d6bdbb9bb25e531230bfc7cc663cb751406cbec90a2a891b85fea54de86
