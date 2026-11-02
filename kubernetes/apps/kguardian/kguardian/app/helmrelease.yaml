@@ -30,6 +30,8 @@ spec:
       enabled: false
     supplychain:
       enabled: true
+    seccomp:
+      distribute: true
     controller:
       excludedNamespaces:
         - kguardian
