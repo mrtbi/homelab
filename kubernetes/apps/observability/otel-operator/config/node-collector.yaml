@@ -5,7 +5,7 @@ metadata:
   namespace: observability
 spec:
   mode: daemonset
-  image: docker.io/otel/opentelemetry-collector-contrib:0.163.2
+  image: docker.io/otel/opentelemetry-collector-contrib:0.164.0
   # run on control-plane nodes too
   tolerations:
     - operator: Exists
