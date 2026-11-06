@@ -33,7 +33,7 @@ spec:
   tlsSecretName: idm-mrtb-io-tls
   gateway:
     parentRefs:
-      - name: envoy-external
+      - name: envoy-internal
         namespace: network
     hostnames:
       - idm.mrtb.io
