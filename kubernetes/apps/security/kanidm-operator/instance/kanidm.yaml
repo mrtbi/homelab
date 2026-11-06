@@ -29,7 +29,7 @@ spec:
         resources:
           requests:
             storage: 1Gi
-        storageClassName: miroir-local
+        storageClassName: miroir-no-replica
   tlsSecretName: idm-mrtb-io-tls
   gateway:
     parentRefs:
