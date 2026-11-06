@@ -1,0 +1,43 @@
+---
+apiVersion: kaniop.rs/v1beta1
+kind: Kanidm
+metadata:
+  name: sso
+spec:
+  disableUpgradeChecks: true
+  domain: idm.mrtb.io
+  origin: https://idm.mrtb.io
+  replicaGroups:
+    - name: default
+      replicas: 1
+      primaryNode: true
+      resources:
+        requests:
+          cpu: 10m
+        limits:
+          memory: 512Mi
+  image: kanidm/server:1.12.0
+  logLevel: info
+  groupNamespaceSelector: {}
+  oauth2ClientNamespaceSelector: {}
+  serviceAccountNamespaceSelector: {}
+  storage:
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: miroir-local
+  tlsSecretName: idm-mrtb-io-tls
+  gateway:
+    parentRefs:
+      - name: envoy-external
+        namespace: network
+    hostnames:
+      - idm.mrtb.io
+    backendTlsPolicy:
+      validation:
+        hostname: idm.mrtb.io
+        wellKnownCaCertificates: System
