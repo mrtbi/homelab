@@ -10,7 +10,7 @@ spec:
   duration: 160h
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-production
+    name: hetzner-dns01
   privateKey:
     algorithm: ECDSA
     size: 256
